@@ -28,30 +28,10 @@
 
 ## 🚀 Content
 
-### ❗️Important Concepts
-
 When you configure the TCP/IP protocol on a computer, the TCP/IP configuration settings require:
 - [An IP address](#ip-addresses-networks-and-hosts)
 - [A subnet mask](#subnet-mask)
 - [A default gateway](#default-gateways)
-
-### Important Information
-
-The first IP address of the subnet is the address of the network.
-
-The last IP address of the subnet is the broadcast.
-
-IP addresses of neighboring networks must not overlap.
-
-IP-addresses for communication with itself:
-- from 127.0.0.1 to 127.255.255.254.
-Private IP addresses (without access to the Internet):
-- from 10.0.0.0 to 10.255.255.255
-- from 172.16.0.0 to 172.31.255.255
-- from 192.168.0.0 to 192.168.255.255.
-Other IP addresses are public (with access to the Internet).
-In the routing table, default or 0.0.0.0/0 matches everything.
-The router has a different mask for each subnet.
 
 IP addresses: Networks and hosts
 ---
@@ -129,5 +109,23 @@ If a TCP/IP computer needs to communicate with a host on another network, it wil
 When a host attempts to communicate with another device using TCP/IP, it performs a comparison process using the defined subnet mask and the destination IP address versus the subnet mask and its own IP address. The result of this comparison tells the computer whether the destination is a local host or a remote host.
 
 If the result of this process determines the destination to be a local host, then the computer will send the packet on the local subnet. If the result of the comparison determines the destination to be a remote host, then the computer will forward the packet to the default gateway defined in its TCP/IP properties. It's then the responsibility of the router to forward the packet to the correct subnet.
+
+Important Information
+---
+The first IP address of the subnet is the address of the network.
+
+The last IP address of the subnet is the broadcast.
+
+IP addresses of neighboring networks must not overlap.
+
+IP-addresses for communication with itself:
+- from 127.0.0.1 to 127.255.255.254.
+Private IP addresses (without access to the Internet):
+- from 10.0.0.0 to 10.255.255.255
+- from 172.16.0.0 to 172.31.255.255
+- from 192.168.0.0 to 192.168.255.255.
+Other IP addresses are public (with access to the Internet).
+In the routing table, default or 0.0.0.0/0 matches everything.
+The router has a different mask for each subnet.
 
 ## 🚩 Level
