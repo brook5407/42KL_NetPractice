@@ -128,5 +128,163 @@ If a TCP/IP computer needs to communicate with a host on another network, it wil
 When a host attempts to communicate with another device using TCP/IP, it performs a comparison process using the defined subnet mask and the destination IP address versus the subnet mask and its own IP address. The result of this comparison tells the computer whether the destination is a local host or a remote host.
 
 If the result of this process determines the destination to be a local host, then the computer will send the packet on the local subnet. If the result of the comparison determines the destination to be a remote host, then the computer will forward the packet to the default gateway defined in its TCP/IP properties. It's then the responsibility of the router to forward the packet to the correct subnet.
-
+<!--
 ## 🚩 Level
+
+<details>
+  <summary>Level 1</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226160244-0409be6d-ba15-4674-8e6e-a9e5b21cab75.png" alt="level1">
+  <br>
+  <br>
+
+### A1: IP
+Since Client A and Client B are on the same network, their IP address must represent the same network in accordance with the subnet mask. 
+The subnet mask is `255.255.255.0`, which means that the first `3 bytes` of the IP address represent the network, and the 4th byte represents the host. Since we are on the same network, only the host can change. 
+The solution will be anything in the range of `104.99.23.0 - 104.99.23.255` excluding the following:
+~~~
+104.99.23.0: The first number in the range of hosts (0 in this case) represents the network and cannot be used by a host.
+104.99.23.255: The last number in the range of hosts (255 in this case) represents the broadcast address.
+104.99.23.12: This address is already used by the host Client B.
+~~~
+
+### D1: IP
+The same situation as A1, however the subnet mask is `255.255.0.0` in this case. The first 2 bytes of the IP address will represent the network; and the last `2 bytes`, the host address.
+The solution will be anything in the range of `211.191.0.0 - 211.191.255.255`, excluding:
+~~~~
+211.191.0.0: Represents the network address.
+211.191.255.255: Represents the broadcast address.
+211.191.89.75: Already taken by host Client C.
+~~~~
+</br>
+</details>
+
+---
+<details>
+  <summary>Level 2</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226160392-e71c0077-0276-4f8c-aa60-a8af51bcf0f2.png" alt="level2">
+  <br>
+  <br>
+
+### B1: Mask
+Since Client B is on the same private network as Client A, they should have the exact same subnet mask. The solution can only be `255.255.255.224`.
+
+### A1: IP
+To understand the subnet mask of `255.255.255.224`, let's look at it in binary form, along with the IP `192.168.20.222` of Client B:
+- MASK: 11111111.11111111.11111111.11100000
+- IP:   11000000.10101000.00010100.11011101
+
+As we can see, the first `27 bits` represent the IP address, while only the last `5 bits` represent the host address.
+All these `27 bits` representing the network must stay the same in the IP addresses of hosts on the same network. To get the answer, we can only change the last `5 bits`. 
+
+The answer is in the range of:
+```
+BIN:  11000000.10101000.10000001.11000000 - 11000000.10101000.10000001.11011111
+or
+DEC:  192.168.129.192 - 192.168.129.223
+```
+Excluding: 
+```
+11000000.10101000.10000001.11000000 (192.168.129.192): Represents the network address (notice all 0 in the last 5 bits).
+11000000.10101000.10000001.11011111 (192.168.129.223): Represents the broadcast address (notice all 1 in the last 5 bits).
+11000000.10101000.10000001.11011110 (192.168.129.222): Client B already has that address.
+```
+### C1 & D1: IP
+Here we are introduced the slash "/" notation for the subnet mask on Interface D1. A subnet mask of `/30` means that the first `30 bits` of the IP address represent the network address, and the remaining `2 bits` represent the host address:
+
+Mask /30: `11111111.11111111.11111111.11111100`
+We can see that this binary number corresponds to the decimal `255.255.255.252`, therefore it is identical to the mask found on Interface C1. 
+
+The answers can then be any address, as long as they meet the following conditions:
+
+The network address (first 30 bits) must be identical for Client D and Client C.
+The host bits (last 2 bits) cannot be all 1, nor all 0.
+Client D and Client C do not have identical IP addresses.
+</br>
+</details>
+
+---
+<details>
+  <summary>Level 3</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226161423-0af61a0c-7aae-4bb5-ba1c-e36b7d3a867b.png" alt="level3">
+  <br>
+  <br>
+This exercise introduces the use of the switch (Switch S in this example). The switch links multiple hosts of the same network together. 
+
+### A1 & B1: Mask
+Client A, Client B, and Client C are all on the same network. Therefore, they must all have the same subnet mask. Since Client C already has the mask `255.255.255.128`, the mask for Interface B1 and for Interface A1 will also be `255.255.255.128` (or in slash notation: `/25`). 
+
+### B1 & C1: IP
+The IP address of Interface B1 and Interface C1 must be on the same network range as the IP of Client A. This range is:
+```
+104.198.241.0 - 104.198.241.128
+```
+Excluding of course the network address and the broadcast address.
+</br>
+</details>
+
+---
+<details>
+  <summary>Level 4</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226162499-c1a6d8bf-b5c8-4714-b45b-83b7de0ffc17.png" alt="level4">
+  <br>
+  <br>
+This exercise introduces the router. The router is used to link multiple networks together. It does so with the use of multiple interfaces (Interface R1, Interface R2, and Interface R3 in this example). 
+
+### B1, A1 & R1: Mask
+Since none of the masks on Interface B1, Interface A1, and Interface R1 are entered, we are free to choose our own subnet mask. A mask of `/24` is ideal as it leaves us with the entire 4th byte for the host address, and does not require binary calculations to find the range of possible host addresses. 
+
+### B1 & R1: IP
+The IP address of Interface B1 and Interface R1 must have the same network address as the IP address of Interface A1. With a subnet of `/24`, the possible range is:
+```
+72.4.110.0 - 72.4.110.255
+```
+Excluding the network address and the broadcast address. 
+
+Note that we did not interact with the router Interface R2 and Interface R3, since none of our communications had to reach these sides of the router.
+</br>
+</details>
+
+---
+<details>
+  <summary>Level 5</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226162689-aa948a49-1ae0-46b9-8ce3-d6956f3ddd4d.png" alt="level5">
+  <br>
+  <br>
+This level introduces routes. A route contains 2 fields, the first one is the destination of outbound packets, the second one is the next hop of the packets. 
+
+The destination default is equivalent to `0.0.0.0/0`, which will send the packets indiscriminately to the first network address it encounters. A destination address of `122.3.5.3/24` would send the packets to the network `122.3.5.0`.
+
+The **next hop** is the IP address of the next router (or internet) interface to which the interface of the current machine must send its packets. 
+
+Client A only has 1 route through which it can send its packets. There is no use specifying a numbered destination. The destination default will send the packets to the only path available. 
+
+The next hop address must be the IP address of the next router's interface on the packets' way. The next interface is Interface R1, with the IP address of `44.93.252.126`. Note that the next interface is not Interface A1, since this is the sender's own interface.
+</br>
+</details>
+
+---
+<details>
+  <summary>Level 6</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226230591-e5585e50-026a-4084-aa0c-2d8890228333.png" alt="level6">
+  <br>
+  <br>
+
+</br>
+</details>
+
+---
+<details>
+  <summary>Level 7</summary>
+  <br>
+  <img src="https://user-images.githubusercontent.com/100013115/226161423-0af61a0c-7aae-4bb5-ba1c-e36b7d3a867b.png" alt="level7">
+  <br>
+  <br>
+</br>
+</details>
+-->
