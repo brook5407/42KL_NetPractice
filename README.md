@@ -288,3 +288,13 @@ The next hop address must be the IP address of the next router's interface on th
 </br>
 </details>
 -->
+
+Reference
+---
+[Understand TCP/IP addressing and subnetting basics](https://learn.microsoft.com/en-us/troubleshoot/windows-client/networking/tcpip-addressing-and-subnetting)
+
+[RFC 1878](https://datatracker.ietf.org/doc/html/rfc1878)
+
+[Subnet Cheat Sheet – 24 Subnet Mask, 30, 26, 27, 29, and other IP Address CIDR Network References](https://www.freecodecamp.org/news/subnet-cheat-sheet-24-subnet-mask-30-26-27-29-and-other-ip-address-cidr-network-references/)
+
+[IP Subnet Calculator](https://www.calculator.net/ip-subnet-calculator.html?cclass=any&csubnet=26&cip=124.82.129.208&ctype=ipv4&printit=0&x=66&y=39)
