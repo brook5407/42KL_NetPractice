@@ -19,7 +19,7 @@
 	<span> · </span>
   	<a href="#-content">Content</a>
 	<span> · </span>
-	<a href="#-level">Level</a>
+	<a href="#-reference">Level</a>
 </h3>
 
 ## 💡 About
@@ -289,8 +289,7 @@ The next hop address must be the IP address of the next router's interface on th
 </details>
 -->
 
-Reference
----
+## 📎 Reference
 - [RFC 1878](https://datatracker.ietf.org/doc/html/rfc1878)
 - [Subnet Cheat Sheet](https://www.freecodecamp.org/news/subnet-cheat-sheet-24-subnet-mask-30-26-27-29-and-other-ip-address-cidr-network-references/)
 - [IP Subnet Calculator](https://www.calculator.net/ip-subnet-calculator.html?cclass=any&csubnet=26&cip=124.82.129.208&ctype=ipv4&printit=0&x=66&y=39)
