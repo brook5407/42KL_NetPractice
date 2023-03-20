@@ -19,7 +19,7 @@
 	<span> · </span>
   	<a href="#-content">Content</a>
 	<span> · </span>
-	<a href="#-reference">Level</a>
+	<a href="#-reference">Reference</a>
 </h3>
 
 ## 💡 About
